@@ -1,19 +1,18 @@
 import sys
 import smtplib
+import secrets
 
-from_addr = 'sender@example.com'
-to_addrs = ['recipient@example.com']
-msg = """From: Sender
-To: Recipient
-Subject: This is the message subject
-
-This is the message body.
+from_addr = secrets.sender
+to_addrs = [secrets.receiver]
+msg = """Essa mensagem foi enviada por um script em python.
+Utilizando a biblioteca smtplib.
 """
 
 try:
     s = smtplib.SMTP('localhost')
-    s.login('sender@example.com', 'password')
+    s.login(secrets.sender, secrets.sender_password)
     s.sendmail(from_addr, to_addrs, msg)
     s.quit()
+    print('E-mail enviado.')
 except smtplib.SMTPException:
-    print "Error:", sys.exc_info()[0]
+    print ("Erro:", sys.exc_info()[0])
